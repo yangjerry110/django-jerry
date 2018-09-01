@@ -1,0 +1,8 @@
+<h1>设置爬取参数</h1>
+
+<form action="{% url 'polls:getHtmlInfo' %}" method="post">
+    {% csrf_token %}
+    <p>url：<input name="url" type="text" style="width: 1000px;"></p>
+    <p>title：<input name="title" type='text' style="width: 1000px;"></p>
+    <input type="submit" value="提交">
+</form>
