@@ -48,4 +48,4 @@ def getHtmlInfo(request):
     #pdb.set_trace() # 运行到这里会自动暂停
     result = webdriverDiySet(url,title)
     #pdb.set_trace() # 运行到这里会自动暂停
-    return HttpResponse("返回的json：%s." % result)
+    return HttpResponse('返回的json：<br/> %s ' % result)
