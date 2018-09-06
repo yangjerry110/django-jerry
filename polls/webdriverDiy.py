@@ -69,8 +69,8 @@ def webdriverDiySetForConfig(data):
     return json.dumps({'error':0,'data':resultData})
 
 def leanCloudFunction(data):
-    appId = 'DGQowA9d1KJtUlORL3OgSgSc-gzGzoHsz'
-    appKey = 'uHBjnX6lQIbTQQnfuJg42JvU'
+    appId = '******'
+    appKey = '***********'
     leancloud.init(appId,appKey)
     if data['type'] == 'insert':
         leanCloudInsert(data)
