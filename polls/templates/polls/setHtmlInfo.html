@@ -2,7 +2,28 @@
 
 <form action="{% url 'polls:getHtmlInfo' %}" method="post">
     {% csrf_token %}
+    <div id='div1'>
     <p>url：<input name="url" type="text" style="width: 1000px;"></p>
-    <p>title：<input name="title" type='text' style="width: 1000px;"></p>
+    <p class="item"><input class="key" type="text"> <input class="value" type="text"></p>
+    <p class="item"><input class="key" type="text"> <input class="value" type="text"></p>
+    <p class="item"><input class="key" type="text"> <input class="value" type="text"></p>
+    </div>
+    <p><input type='button' value="追加爬取参数" onclick="addParams()"></p>
+    <div id="pp">
+
+    </div>
     <input type="submit" value="提交">
 </form>
+
+<script type="text/javascript">
+    function addParams()
+    {
+        var pp =  document.getElementById('pp');
+        var p = document.createElement('p');
+        //创建新的<p>   name="param[]" type="text" style="width: 1000px;元素
+        var node=document.createElement('input');
+            node.name = "params[]"
+        p.appendChild(node);
+        pp.appendChild(p);
+    }
+</script>

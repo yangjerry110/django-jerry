@@ -16,3 +16,7 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.Choice_text
+
+class fileUser(models.Model):
+    file_name = models.CharField(max_length=200)
+    

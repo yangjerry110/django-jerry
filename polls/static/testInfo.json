@@ -1,0 +1,9 @@
+{
+    "url":["https://www.jianshu.com/p/d602f039650b", "https://www.jianshu.com/p/f92acd33bc71", "https://www.jianshu.com/p/6b9ab1097bee"],
+    "params":{
+        "title":"return document.getElementsByClassName('title')[0].innerText"
+    },
+    "save":true,
+    "database_driver":"leancloud",
+    "table":"test_cloud"
+}

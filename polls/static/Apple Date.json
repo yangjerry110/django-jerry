@@ -1,0 +1,10 @@
+{
+    "url":["http://www.weather.com.cn/weather1d/101020100.shtml"],
+    "params":{
+        "tem":"return $(\".t .sk .tem\").find(\"span\").html()",
+        "SD":"return $(\".t .sk .zs\").find(\"em\").html()"
+    },
+    "save":false,
+    "database_driver":"leancloud",
+    "table":"test_cloud"
+}

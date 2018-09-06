@@ -1,0 +1,9 @@
+{% if fileUserList %}
+    <ul>
+    {% for list in fileUserList %}
+        <li><a href="/polls/fileUserAction/{{ list.id }}">{{ list.file_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
