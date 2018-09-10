@@ -30,5 +30,7 @@ urlpatterns = [
     path('fileUserAction/<int:file_user_id>',views.fileUserAction,name="fileUserAction"),
     #path('fileReadForDecode',views.fileReadForDecode,name="fileReadForDecode"),
     #外部调用，自定义配置
-    path('confDiy',views.confDiy,name="confDiy")
+    path('confDiy',views.confDiy,name="confDiy"),
+    #测试json模板的数据渲染
+    path('testJson',views.testJson,name="testJson")
 ]

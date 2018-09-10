@@ -7,6 +7,7 @@ from selenium import webdriver
 from polls.webdriverDiy import webdriverDiySet,webdriverDiySetForConfig
 import json
 import os,sys
+import re
 
 # Create your views here.
 
@@ -122,6 +123,58 @@ def confDiy(request):
                 jsonInfo = receiveData
 
             #pdb.set_trace() # 运行到这里会自动暂停
+            #替换传递过来的配置中的变量
+            if 'data' in jsonInfo:
+                # for i in jsonInfo:
+                #     #pdb.set_trace() # 运行到这里会自动暂停
+                #     if type(jsonInfo[i]).__name__ == "str":
+                #         for x in jsonInfo['data']:
+                #             jsonInfo[i] = re.sub(r'{{'+str(x)+'}}',jsonInfo['data'][x],jsonInfo[i])
+                #     elif type(jsonInfo[i]).__name__ == 'dict':
+                #         for x in jsonInfo[i]:
+                #             for y in jsonInfo['data']:
+                #                 jsonInfo[i][x] = re.sub(r'{{'+str(y)+'}}',jsonInfo['data'][y],jsonInfo[i][x])
+                #     elif type(jsonInfo[i]).__name__ == 'list':
+                #         for x in range(0,len(jsonInfo[i])):
+                #             for y in jsonInfo['data']:
+                #                 jsonInfo[i][x] = re.sub(r'{{'+str(y)+'}}',jsonInfo['data'][y],jsonInfo[i][x])
+                #             #pdb.set_trace() # 运行到这里会自动暂停
+                for i in jsonInfo:
+                    if type(jsonInfo[i]).__name__ == 'str':
+                        thisSearch = re.search(r'{{[a-z]+}}',jsonInfo[i])
+                        #pdb.set_trace() # 运行到这里会自动暂停
+                        if thisSearch is not None:
+                            thisGroup = thisSearch.group()
+                            thisSplit = thisGroup.split('{{')[1].split('}}')[0]
+                            if thisSplit in jsonInfo['data']:
+                                jsonInfo[i] = re.sub(r'{{'+str(thisSplit)+'}}',jsonInfo['data'][thisSplit],jsonInfo[i])
+                            #pdb.set_trace() # 运行到这里会自动暂停
+                            else:
+                                jsonInfo[i] = re.sub(r'{{'+str(thisSplit)+'}}','',jsonInfo[i])
+                    elif type(jsonInfo[i]).__name__ == 'dict':
+                        for x in jsonInfo[i]:
+                            thisSearch = re.search(r'{{[a-z]+}}',jsonInfo[i][x])
+                            if thisSearch is not None:
+                                thisGroup = thisSearch.group()
+                                thisSplit = thisGroup.split('{{')[1].split('}}')[0]
+                                if thisSplit in jsonInfo['data']:
+                                    jsonInfo[i][x] = re.sub(r'{{'+str(thisSplit)+'}}',jsonInfo['data'][thisSplit],jsonInfo[i][x])
+                                #pdb.set_trace() # 运行到这里会自动暂停
+                                else:
+                                    jsonInfo[i][x] = re.sub(r'{{'+str(thisSplit)+'}}','',jsonInfo[i][x])
+                    elif type(jsonInfo[i]).__name__ == 'list':
+                        for x in range(0,len(jsonInfo[i])):
+                            thisSearch = re.search(r'{{[a-z]+}}',jsonInfo[i][x])
+                            if thisSearch is not None:
+                                thisGroup = thisSearch.group()
+                                thisSplit = thisGroup.split('{{')[1].split('}}')[0]
+                                if thisSplit in jsonInfo['data']:
+                                    jsonInfo[i][x] = re.sub(r'{{'+str(thisSplit)+'}}',jsonInfo['data'][thisSplit],jsonInfo[i][x])
+                                #pdb.set_trace() # 运行到这里会自动暂停
+                                else:
+                                    jsonInfo[i][x] = re.sub(r'{{'+str(thisSplit)+'}}','',jsonInfo[i][x])
+
+            pdb.set_trace() # 运行到这里会自动暂停
             result = webdriverDiySetForConfig(jsonInfo)
             #pdb.set_trace() # 运行到这里会自动暂停
             return HttpResponse(result)
@@ -132,5 +185,12 @@ def confDiy(request):
     
     returnJson = json.dumps(returnData)    
     return HttpResponse(returnJson)
+
+def testJson(request):
+    data = {
+        "test":"32131231231"
+    }
+    jsonInfo = render(request,'polls/test.json',data)
+    return HttpResponse(json.loads(jsonInfo))
 
     
