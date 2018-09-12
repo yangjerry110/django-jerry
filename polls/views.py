@@ -140,6 +140,7 @@ def confDiy(request):
                 #                 jsonInfo[i][x] = re.sub(r'{{'+str(y)+'}}',jsonInfo['data'][y],jsonInfo[i][x])
                 #             #pdb.set_trace() # 运行到这里会自动暂停
                 for i in jsonInfo:
+                    #字符串
                     if type(jsonInfo[i]).__name__ == 'str':
                         thisSearch = re.search(r'{{[a-z]+}}',jsonInfo[i])
                         #pdb.set_trace() # 运行到这里会自动暂停
@@ -151,6 +152,7 @@ def confDiy(request):
                             #pdb.set_trace() # 运行到这里会自动暂停
                             else:
                                 jsonInfo[i] = re.sub(r'{{'+str(thisSplit)+'}}','',jsonInfo[i])
+                    #集合
                     elif type(jsonInfo[i]).__name__ == 'dict':
                         for x in jsonInfo[i]:
                             thisSearch = re.search(r'{{[a-z]+}}',jsonInfo[i][x])
@@ -162,6 +164,7 @@ def confDiy(request):
                                 #pdb.set_trace() # 运行到这里会自动暂停
                                 else:
                                     jsonInfo[i][x] = re.sub(r'{{'+str(thisSplit)+'}}','',jsonInfo[i][x])
+                    #列表
                     elif type(jsonInfo[i]).__name__ == 'list':
                         for x in range(0,len(jsonInfo[i])):
                             thisSearch = re.search(r'{{[a-z]+}}',jsonInfo[i][x])
